@@ -1,4 +1,4 @@
-DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
@@ -698,7 +698,7 @@ DOCTYPE html>
     </footer>
 
     <script>
-        // Scroll Progress Bar
+        
         function updateProgressBar() {
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -706,7 +706,7 @@ DOCTYPE html>
             document.getElementById('progressBar').style.transform = `scaleX(${progress / 100})`;
         }
 
-        // Intersection Observer for scroll animations
+        
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -100px 0px'
