@@ -1,117 +1,761 @@
-<!doctype html>
-<html>
+DOCTYPE html>
+<html lang="vi">
 <head>
-<meta charset="utf-8"/>
-<title>Full Demo Auto Run + Telegram</title>
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<style>
-  body { font-family: system-ui; margin:20px; }
-  input { width:90%; padding:10px; font-size:15px; border-radius:6px; border:1px solid #ccc; }
-  button { padding:10px 15px; font-size:15px; border:none; background:#007bff; color:white; border-radius:6px; margin-top:10px; }
-  pre { background:#f5f5f5; padding:10px; border-radius:6px; border:1px solid #ddd; margin-top:20px; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch Sử và Công Nghệ iPhone - Apple Technology Guide</title>
+    <meta name="description" content="Khám phá lịch sử phát triển và các công nghệ tiên tiến trên iPhone của Apple. Từ chip A-series, iOS, camera, đến Face ID và tương lai công nghệ smartphone.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --accent: #60a5fa;
+            --bg: #ffffff;
+            --bg-secondary: #f8fafc;
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --card-bg: #ffffff;
+            --shadow: rgba(59, 130, 246, 0.1);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary: #3b82f6;
+                --primary-dark: #2563eb;
+                --accent: #60a5fa;
+                --bg: #0f172a;
+                --bg-secondary: #1e293b;
+                --text: #f1f5f9;
+                --text-muted: #cbd5e1;
+                --border: #334155;
+                --card-bg: #1e293b;
+                --shadow: rgba(59, 130, 246, 0.2);
+            }
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 50%, rgba(96, 165, 250, 0.3) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 2rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: white;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero .gradient-text {
+            display: block;
+            background: linear-gradient(to right, #fff, #e0f2fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-top: 0.5rem;
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 3vw, 1.5rem);
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease-out 0.3s backwards;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            color: white;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Section */
+        section {
+            padding: 5rem 0;
+        }
+
+        section:nth-child(even) {
+            background: var(--bg-secondary);
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease-out;
+        }
+
+        .section-title.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px var(--shadow);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.5s ease-out;
+        }
+
+        .card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3);
+            border-color: var(--primary);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-icon {
+            width: 3rem;
+            height: 3rem;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            flex-shrink: 0;
+            transition: transform 0.6s ease;
+        }
+
+        .card:hover .card-icon {
+            transform: rotate(360deg) scale(1.1);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text);
+            flex: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover h3 {
+            transform: translateX(5px);
+        }
+
+        .card-content {
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .card-content p {
+            margin-bottom: 1rem;
+        }
+
+        .card-content ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .card-content li {
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .card-content li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .card-content strong {
+            color: var(--text);
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .grid-item {
+            padding: 1rem;
+        }
+
+        .grid-item h4 {
+            color: var(--text);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Image */
+        .tech-image {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 1rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 20px 60px var(--shadow);
+            opacity: 0;
+            transform: translateY(50px) scale(0.95);
+            transition: all 0.8s ease-out;
+        }
+
+        .tech-image.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* Conclusion Box */
+        .conclusion {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(96, 165, 250, 0.1));
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 1rem;
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: all 0.6s ease-out;
+        }
+
+        .conclusion.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .conclusion:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.4);
+        }
+
+        .conclusion p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--card-bg);
+            border-top: 1px solid var(--border);
+            padding: 3rem 0;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+            transition: transform 0.3s ease;
+        }
+
+        footer p:hover {
+            transform: scale(1.05);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            section {
+                padding: 3rem 0;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* SVG Icons */
+        .icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Smooth scroll progress bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            z-index: 9999;
+            transform-origin: left;
+            transition: transform 0.1s ease-out;
+        }
+    </style>
 </head>
 <body>
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
 
-<h2>Full Demo — Auto Run + Telegram</h2>
-<input id="url" placeholder="Dán URL vào đây..." />
-<button id="run">Chạy mô phỏng</button>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>
+                Lịch Sử & Công Nghệ
+                <span class="gradient-text">iPhone của Apple</span>
+            </h1>
+            <p>Khám phá hành trình đổi mới và công nghệ tiên tiến đã làm thay đổi thế giới smartphone</p>
+        </div>
+        <div class="scroll-indicator">
+            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </section>
 
-<pre id="log">Chưa chạy...</pre>
+    <!-- Lịch Sử Section -->
+    <section id="history">
+        <div class="container">
+            <h2 class="section-title">Lịch Sử Hình Thành và Phát Triển</h2>
+            
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3>Sự Ra Đời Đột Phá (2007)</h3>
+                </div>
+                <div class="card-content">
+                    <p>Ngày 9 tháng 1 năm 2007, Steve Jobs đã giới thiệu chiếc iPhone đầu tiên tại MacWorld Conference ở San Francisco, đánh dấu một bước ngoặt lịch sử trong ngành công nghệ di động. Với slogan "một iPod, một điện thoại, và một thiết bị internet kết hợp trong một", iPhone đã cách mạng hóa cách chúng ta tương tác với công nghệ.</p>
+                </div>
+            </div>
 
-<script>
-// =========================
-// 🔧 CONFIG (TỰ SỬA)
-// =========================
-const BOT_TOKEN = "8116403201:AAH6yA9lGH9gmqnZso9UzmAM6JSNyJpndqw";
-const CHAT_ID   = "6547500557";
+            <div class="card">
+                <div class="card-header">
+                    <h3>Các Cột Mốc Quan Trọng</h3>
+                </div>
+                <div class="card-content">
+                    <ul>
+                        <li><strong>iPhone 3G (2008):</strong> Ra mắt App Store, mở ra kỷ nguyên ứng dụng di động.</li>
+                        <li><strong>iPhone 4 (2010):</strong> Thiết kế khung thép không gỉ iconic, màn hình Retina Display.</li>
+                        <li><strong>iPhone 5s (2013):</strong> Giới thiệu Touch ID và chip A7 64-bit đầu tiên.</li>
+                        <li><strong>iPhone X (2017):</strong> Thiết kế toàn màn hình, Face ID, loại bỏ nút Home.</li>
+                        <li><strong>iPhone 12 (2020):</strong> Hỗ trợ 5G, thiết kế phẳng hiện đại, MagSafe.</li>
+                        <li><strong>iPhone 15/16 (2023-2024):</strong> Dynamic Island, chip A17/A18 Pro, camera 48MP, cổng USB-C.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
-// =========================
-// MOCK DATABASE
-// =========================
-const mockDb = {
-  "example.com": {
-    cookies: [
-      {name:"session", value:"fake_session_18923", httpOnly:true},
-      {name:"uid", value:"user_123"},
-    ],
-    localStorage: {theme:"dark", lastSeen:"2025-11-01"},
-    headers: {"server":"nginx", "x-powered-by":"demo-framework"}
-  },
-  "facebook.com": {
-    cookies: [{name:"fr", value:"fakeFRcookie"}],
-    localStorage: {lang:"vi"},
-    headers: {"server":"proxy", "meta":"demo"}
-  }
-};
+    <!-- iOS Section -->
+    <section id="ios">
+        <div class="container">
+            <h2 class="section-title">Hệ Điều Hành iOS</h2>
+            
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3>Sự Tiến Hóa của iOS</h3>
+                </div>
+                <div class="card-content">
+                    <p>iOS là hệ điều hành di động được phát triển bởi Apple, lần đầu ra mắt năm 2007. Từ iOS 1 đơn giản đến iOS 17/18 hiện đại, hệ điều hành này đã không ngừng tiến hóa với hàng trăm tính năng mới và cải tiến về hiệu suất.</p>
+                </div>
+            </div>
 
-// =========================
-// HELPERS
-// =========================
-function safeHost(u){
-  try { return new URL(u).hostname.replace(/^www\./,""); }
-  catch(e){ return null; }
-}
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                    </div>
+                    <h3>Tính Năng Cốt Lõi</h3>
+                </div>
+                <div class="card-content">
+                    <div class="grid">
+                        <div class="grid-item">
+                            <h4>Bảo Mật Hàng Đầu</h4>
+                            <p>iOS được thiết kế với bảo mật đa lớp, mã hóa end-to-end, và các tính năng như Face ID/Touch ID, App Tracking Transparency, và Private Relay.</p>
+                        </div>
+                        <div class="grid-item">
+                            <h4>Hệ Sinh Thái Ứng Dụng</h4>
+                            <p>App Store với hơn 2 triệu ứng dụng, được kiểm duyệt nghiêm ngặt. Tích hợp sâu với các dịch vụ như iCloud, Apple Music, và Apple TV+.</p>
+                        </div>
+                        <div class="grid-item">
+                            <h4>Siri & AI</h4>
+                            <p>Trợ lý ảo thông minh với khả năng nhận diện giọng nói, xử lý ngôn ngữ tự nhiên, và tích hợp với hệ sinh thái Apple.</p>
+                        </div>
+                        <div class="grid-item">
+                            <h4>Dịch Vụ Tích Hợp</h4>
+                            <p>Apple Pay cho thanh toán không tiếp xúc, iCloud cho lưu trữ đám mây, Find My cho định vị thiết bị, và Continuity cho trải nghiệm liền mạch.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-function getDeviceInfo(){
-  return {
-    userAgent: navigator.userAgent,
-    platform: navigator.platform,
-    language: navigator.language,
-    screen: `x`,
-    time: new Date().toLocaleString(),
-  };
-}
+    <!-- Hardware Section -->
+    <section id="hardware">
+        <div class="container">
+            <h2 class="section-title">Công Nghệ Phần Cứng Đột Phá</h2>
+            
+            <svg class="tech-image" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
+                <rect width="1280" height="720" fill="url(#gradient)"/>
+                <defs>
+                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#1e40af;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <text x="640" y="360" font-family="Arial" font-size="48" fill="white" text-anchor="middle">iPhone Technology</text>
+            </svg>
 
-async function sendToTele(text){
-  const url = `https://api.telegram.org/bot/sendMessage`;
-  return fetch(url,{
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body: JSON.stringify({ chat_id: CHAT_ID, text })
-  });
-}
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
+                        </svg>
+                    </div>
+                    <h3>Chip A-Series & Neural Engine</h3>
+                </div>
+                <div class="card-content">
+                    <p>Chip A-series của Apple là bộ vi xử lý di động mạnh mẽ nhất thế giới. Chip A18 Pro mới nhất được sản xuất trên tiến trình 3nm, tích hợp CPU 6 nhân, GPU 6 nhân, và Neural Engine 16 nhân.</p>
+                    <p><strong>Neural Engine</strong> là bộ xử lý chuyên dụng cho AI và Machine Learning, có khả năng thực hiện 35 nghìn tỷ phép tính mỗi giây, cho phép các tính năng như nhận diện khuôn mặt tức thời, xử lý ảnh thông minh, và Siri on-device.</p>
+                </div>
+            </div>
 
-// =========================
-// MAIN
-// =========================
-async function runDemo(){
-  const raw = document.getElementById("url").value.trim();
-  const host = safeHost(raw);
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3>Công Nghệ Màn Hình</h3>
+                </div>
+                <div class="card-content">
+                    <div class="grid-item">
+                        <h4>Retina Display</h4>
+                        <p>Công nghệ màn hình Retina với mật độ điểm ảnh cao đến mức mắt người không thể phân biệt từng pixel riêng lẻ, mang đến chất lượng hiển thị sắc nét tuyệt đối.</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>OLED & Super Retina XDR</h4>
+                        <p>Màn hình OLED với tỷ lệ tương phản vô cực, màu sắc chính xác 100%, độ sáng tối đa 2000 nits (HDR), và công nghệ True Tone tự động điều chỉnh nhiệt độ màu.</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>ProMotion 120Hz</h4>
+                        <p>Tần số quét thích ứng từ 1Hz đến 120Hz, mang đến trải nghiệm cuộn mượt mà như lụa và tiết kiệm pin thông minh.</p>
+                    </div>
+                </div>
+            </div>
 
-  if(!host){
-    document.getElementById("log").textContent = "URL không hợp lệ!";
-    return;
-  }
+            <div class="card">
+                <div class="card-header">
+                    <h3>Xác Thực Sinh Trắc Học</h3>
+                </div>
+                <div class="card-content">
+                    <div class="grid">
+                        <div class="grid-item">
+                            <h4>Touch ID</h4>
+                            <p>Cảm biến vân tay tích hợp trên nút Home hoặc nút nguồn, sử dụng công nghệ điện dung để quét và xác thực vân tay với độ chính xác cao.</p>
+                        </div>
+                        <div class="grid-item">
+                            <h4>Face ID</h4>
+                            <p>Hệ thống nhận diện khuôn mặt 3D sử dụng TrueDepth camera với 30,000 điểm hồng ngoại vô hình, hoạt động trong mọi điều kiện ánh sáng.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-  const mock = mockDb[host] || {cookies:[], localStorage:{}, headers:{}};
-  const device = getDeviceInfo();
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                    </div>
+                    <h3>Hệ Thống Camera Tiên Tiến</h3>
+                </div>
+                <div class="card-content">
+                    <ul>
+                        <li><strong>Camera 48MP Pro:</strong> Cảm biến lớn với công nghệ pixel binning, chế độ chụp ProRAW 48MP, và khả năng zoom quang học.</li>
+                        <li><strong>Night Mode:</strong> Chụp ảnh đêm sáng rõ với công nghệ Deep Fusion và Smart HDR 5.</li>
+                        <li><strong>Chống Rung Quang Học (OIS):</strong> Sensor-shift OIS di chuyển toàn bộ cảm biến với tốc độ 5000 lần/giây.</li>
+                        <li><strong>Video 4K & Cinematic Mode:</strong> Quay video 4K@60fps, ProRes, Dolby Vision HDR.</li>
+                        <li><strong>Photonic Engine:</strong> Công nghệ xử lý ảnh mới cải thiện chất lượng lên đến 2 lần.</li>
+                    </ul>
+                </div>
+            </div>
 
-  const payload = {
-    host,
-    mockData: mock,
-    deviceInfo: device
-  };
+            <div class="card">
+                <div class="card-header">
+                    <h3>Pin & Công Nghệ Sạc</h3>
+                </div>
+                <div class="card-content">
+                    <p>iPhone sử dụng pin Lithium-ion với công nghệ quản lý năng lượng thông minh.</p>
+                    <div class="grid">
+                        <div class="grid-item">
+                            <h4>Sạc Nhanh</h4>
+                            <p>Hỗ trợ sạc nhanh 20W-30W qua USB-C, đạt 50% pin chỉ trong 30 phút.</p>
+                        </div>
+                        <div class="grid-item">
+                            <h4>MagSafe</h4>
+                            <p>Sạc không dây 15W với nam châm tự động căn chỉnh vị trí tối ưu.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  // log on screen
-  document.getElementById("log").textContent =
-    "Dữ liệu mô phỏng đã chạy:\n\n" + JSON.stringify(payload,null,2);
+    <!-- Features Section -->
+    <section id="features">
+        <div class="container">
+            <h2 class="section-title">Tính Năng và Mẫu iPhone Nổi Bật</h2>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3>Các Mẫu Mang Tính Biểu Tượng</h3>
+                </div>
+                <div class="card-content">
+                    <div class="grid-item">
+                        <h4>iPhone X (2017)</h4>
+                        <p>Đánh dấu kỷ nguyên mới với thiết kế toàn màn hình, Face ID, và tai thỏ iconic.</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>iPhone 15 Pro / 16 Pro</h4>
+                        <p>Các mẫu Pro mới nhất với khung Titanium siêu nhẹ, chip A17/A18 Pro, Dynamic Island, Action Button, và camera 48MP với zoom quang học 5x.</p>
+                    </div>
+                </div>
+            </div>
 
-  // send to telegram
-  await sendToTele("📡 FULL DEMO\n\n" + JSON.stringify(payload,null,2));
+            <div class="card">
+                <div class="card-header">
+                    <h3>Tính Năng Nổi Bật</h3>
+                </div>
+                <div class="card-content">
+                    <ul>
+                        <li><strong>Dynamic Island:</strong> Biến tai thỏ thành không gian tương tác động, hiển thị thông báo và hoạt động trực quan.</li>
+                        <li><strong>Siri & Shortcuts:</strong> Trợ lý ảo thông minh với khả năng tự động hóa tác vụ phức tạp.</li>
+                        <li><strong>Continuity & Handoff:</strong> Làm việc liền mạch giữa iPhone, iPad, Mac, và Apple Watch.</li>
+                        <li><strong>Emergency SOS via Satellite:</strong> Gọi cứu hộ khẩn cấp qua vệ tinh.</li>
+                        <li><strong>Crash Detection:</strong> Tự động phát hiện va chạm nghiêm trọng và gọi cấp cứu.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  document.getElementById("log").textContent += "\n\n📨 Đã gửi qua Telegram!";
-}
+    <!-- Future Section -->
+    <section id="future">
+        <div class="container">
+            <h2 class="section-title">Tương Lai Công Nghệ iPhone</h2>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3>Xu Hướng và Dự Đoán</h3>
+                </div>
+                <div class="card-content">
+                    <div class="grid-item">
+                        <h4>Công Nghệ AR/VR & Vision Pro</h4>
+                        <p>iPhone có thể trở thành controller cho trải nghiệm thực tế hỗn hợp với Apple Vision Pro.</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>iPhone Gập (Foldable)</h4>
+                        <p>Apple đang nghiên cứu công nghệ màn hình gập với thiết kế độc đáo.</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>AI & Machine Learning Sâu Hơn</h4>
+                        <p>Apple Intelligence với các mô hình AI chạy hoàn toàn on-device.</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>Kết Nối & Mạng 6G</h4>
+                        <p>Hướng tới mạng 6G với tốc độ download lên đến 1 Tbps.</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>Sức Khỏe & Cảm Biến Y Tế</h4>
+                        <p>Tích hợp cảm biến đo đường huyết không xâm lấn và theo dõi huyết áp.</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>Bền Vững & Môi Trường</h4>
+                        <p>Apple cam kết carbon neutral vào năm 2030 với 100% vật liệu tái chế.</p>
+                    </div>
+                </div>
+            </div>
 
-document.getElementById("run").onclick = runDemo;
+            <div class="conclusion">
+                <p><strong>Kết Luận:</strong> iPhone đã và đang tiếp tục là biểu tượng của sự đổi mới trong ngành công nghệ. Với mỗi thế hệ mới, Apple không chỉ nâng cấp phần cứng mà còn tái định nghĩa cách chúng ta tương tác với công nghệ. Từ chip siêu mạnh, camera chuyên nghiệp, đến hệ sinh thái liền mạch và bảo mật tuyệt đối, iPhone luôn đặt trải nghiệm người dùng lên hàng đầu.</p>
+            </div>
+        </div>
+    </section>
 
-// =========================
-// AUTO RUN KHI DÁN URL
-// =========================
-document.getElementById("url").addEventListener("input", ()=>{
-  clearTimeout(window._auto);
-  window._auto = setTimeout(runDemo, 600); // auto run 0.6s sau khi dán
-});
-</script>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2024 Apple iPhone Technology Guide. Tất cả thông tin được tổng hợp từ nguồn công khai.</p>
+            <p style="font-size: 0.9rem; margin-top: 0.5rem;">iPhone, iOS, Face ID, Touch ID, và Apple là thương hiệu của Apple Inc.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll Progress Bar
+        function updateProgressBar() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = (scrollTop / scrollHeight) * 100;
+            document.getElementById('progressBar').style.transform = `scaleX(${progress / 100})`;
+        }
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedElements = document.querySelectorAll('.section-title, .card, .tech-image, .conclusion');
+            animatedElements.forEach(el => observer.observe(el));
+
+            // Update progress bar on scroll
+            window.addEventListener('scroll', updateProgressBar);
+            updateProgressBar();
+
+            // Add stagger delay to cards
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                card.style.transitionDelay = `${index * 0.1}s`;
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Add parallax effect to hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero && scrolled < window.innerHeight) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+                hero.style.opacity = 1 - (scrolled / window.innerHeight) * 0.7;
+            }
+        });
+    </script>
 </body>
 </html>
